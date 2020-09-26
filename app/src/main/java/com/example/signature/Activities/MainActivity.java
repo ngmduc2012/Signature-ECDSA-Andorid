@@ -1,0 +1,122 @@
+package com.example.signature.Activities;
+
+import android.Manifest;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
+
+import com.example.signature.Adapters.AdapterFragments;
+import com.example.signature.Fragments.Generation_Keys;
+import com.example.signature.Fragments.Signing;
+import com.example.signature.Fragments.Verify;
+import com.example.signature.R;
+import com.google.android.material.tabs.TabLayout;
+
+
+public class MainActivity extends AppCompatActivity {
+    public static final int REQUIRED_CODE = 1;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private AdapterFragments adapterFragment;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        init();
+        adapterViewPager();
+        permission();
+    }
+
+    public void init() {
+        tabLayout = findViewById(R.id.tableLayout);
+        viewPager = findViewById(R.id.viewPager);
+        adapterFragment = new AdapterFragments(getSupportFragmentManager());
+
+    }
+    // set view pager
+    public void adapterViewPager() {
+        adapterFragment.AddFragment(new Generation_Keys(), "");
+        adapterFragment.AddFragment(new Signing(), "");
+        adapterFragment.AddFragment(new Verify(), "");
+        viewPager.setAdapter(adapterFragment);
+        tabLayout.setupWithViewPager(viewPager);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 1) {
+                    Signing.setViewSigningFragment();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
+    //Permission
+    private void permission() {
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                + ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    || ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("Grant those permission!");
+                builder.setMessage("Write and read external storage, use biometric, internet, access network state, read phone state");
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        ActivityCompat.requestPermissions(MainActivity.this,
+                                new String[]{
+                                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                                }, REQUIRED_CODE);
+                    }
+                });
+                builder.setNegativeButton("Cancel", null);
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+            } else {
+                ActivityCompat.requestPermissions(MainActivity.this,
+                        new String[]{
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                Manifest.permission.READ_EXTERNAL_STORAGE,
+                        }, REQUIRED_CODE);
+            }
+
+        } else {
+            Toast.makeText(this, "Pemission already granted!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUIRED_CODE) {
+            if ((grantResults.length > 0) && (grantResults[0] + grantResults[1]) == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Permission Granded!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Premission Denied!", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+    }
+
+}
