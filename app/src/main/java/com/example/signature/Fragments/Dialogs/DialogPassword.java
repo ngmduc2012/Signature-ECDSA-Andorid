@@ -327,7 +327,8 @@ public class DialogPassword extends AppCompatDialogFragment {
             privateKey = PrivateKey.fromPem(decryptedText);
             publicKey = privateKey.publicKey();
         } catch (Exception e) {
-            Toast.makeText(getActivity(), "Reason: Not file .pem or not exits!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Changed Password!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Couldn't Encrypted privateKey.pem!", Toast.LENGTH_SHORT).show();
         }
         // Encrypt privateKey with new AES password
         try {

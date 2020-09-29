@@ -65,6 +65,11 @@ public class Generation_Keys extends Fragment {
         try {
             File path = Environment.getExternalStorageDirectory();
 
+            // create path dir
+            File dir = new File(path + "/Signature/");
+            // create path file
+            dir.mkdir();
+
             //Save Private Key
             File dirPri = new File(path + "/Signature/PrivateKey/");
             // create path file
