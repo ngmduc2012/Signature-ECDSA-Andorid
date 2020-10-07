@@ -2,9 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cc_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.MainActivity">
+    android:clickable="true"
+    tools:context=".Activities.MainActivity"
+    android:focusable="true">
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
@@ -12,6 +15,8 @@
         android:layout_height="0dp"
         android:layout_weight="30"
         android:background="@drawable/background_frags"
+        android:clickable="false"
+        android:focusable="true"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,12 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:contentDescription="@string/todo"
-            android:paddingStart="24dp"
-            android:paddingLeft="24dp"
-            android:paddingTop="24dp"
-            android:paddingEnd="24dp"
-            android:paddingRight="24dp"
-            android:paddingBottom="24dp"
+            android:padding="12dp"
             app:srcCompat="@drawable/ic_key" />
 
         <ImageView
@@ -64,12 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:contentDescription="@string/todo"
-            android:paddingStart="24dp"
-            android:paddingLeft="24dp"
-            android:paddingTop="24dp"
-            android:paddingEnd="24dp"
-            android:paddingRight="24dp"
-            android:paddingBottom="24dp"
+            android:padding="12dp"
             app:srcCompat="@drawable/ic_table_sign" />
 
         <ImageView
@@ -78,12 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:contentDescription="@string/todo"
-            android:paddingStart="24dp"
-            android:paddingLeft="24dp"
-            android:paddingTop="24dp"
-            android:paddingEnd="24dp"
-            android:paddingRight="24dp"
-            android:paddingBottom="24dp"
+            android:padding="12dp"
             app:srcCompat="@drawable/ic_verify" />
     </LinearLayout>
 

@@ -2,8 +2,10 @@ package com.example.signature.Activities;
 
 import android.Manifest;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,16 +25,18 @@ import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
     public static final int REQUIRED_CODE = 1;
+    CountDownTimer countDownTimer;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private AdapterFragments adapterFragment;
-
+    private int countTime = 432000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
+        timeCount();
         adapterViewPager();
         permission();
     }
@@ -43,6 +47,26 @@ public class MainActivity extends AppCompatActivity {
         adapterFragment = new AdapterFragments(getSupportFragmentManager());
 
     }
+
+    // count time to out app
+    public void countTime() {
+        countDownTimer.cancel();
+        timeCount();
+    }
+    // out to login after 7.2 minutes
+    public void timeCount() {
+        countDownTimer = new CountDownTimer(countTime, 1000) {
+            public void onTick(long millisUntilFinished) {
+            }
+
+            public void onFinish() {
+                startActivity(new Intent(MainActivity.this, Login.class));
+                MainActivity.this.finish();
+            }
+
+        }.start();
+    }
+
     // set view pager
     public void adapterViewPager() {
         adapterFragment.AddFragment(new Generation_Keys(), "");
@@ -58,8 +82,13 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                if (position == 1) {
+                if (position == 0) {
+                    countTime();
+                } else if (position == 1) {
                     Signing.setViewSigningFragment();
+                    countTime();
+                } else if (position == 2) {
+                    countTime();
                 }
             }
 
