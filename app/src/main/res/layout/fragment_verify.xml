@@ -13,17 +13,6 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="594dp" />
 
-    <ImageView
-        android:id="@+id/imageView14"
-        android:layout_width="0dp"
-        android:layout_height="144dp"
-        android:contentDescription="@string/todo"
-        android:src="@drawable/icon_app"
-        app:layout_constraintBottom_toTopOf="@+id/ct_v"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ct_v"
         android:layout_width="match_parent"
@@ -395,7 +384,7 @@
         app:layout_constraintBottom_toTopOf="@+id/ct_v"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView14">
+        app:layout_constraintTop_toTopOf="@+id/guideline10">
 
         <ImageView
             android:id="@+id/iv_v_result"
@@ -420,6 +409,13 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="202dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

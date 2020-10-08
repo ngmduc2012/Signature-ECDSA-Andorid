@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private AdapterFragments adapterFragment;
-    private int countTime = 432000;
+    private int countTime = 216000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         countDownTimer.cancel();
         timeCount();
     }
+
     // out to login after 7.2 minutes
     public void timeCount() {
         countDownTimer = new CountDownTimer(countTime, 1000) {
