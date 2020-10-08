@@ -22,7 +22,7 @@
         android:layout_marginStart="7dp"
         android:text="@string/info"
         android:textAlignment="textStart"
-        android:textColor="#673AB7"
+        android:textColor="#F6F1FF"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_info"

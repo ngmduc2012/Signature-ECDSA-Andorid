@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,6 +18,7 @@ import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.signature.Adapters.AdapterFragments;
+import com.example.signature.Fragments.Dialogs.DialogInfo;
 import com.example.signature.Fragments.Generation_Keys;
 import com.example.signature.Fragments.Signing;
 import com.example.signature.Fragments.Verify;
@@ -26,6 +29,7 @@ import com.google.android.material.tabs.TabLayout;
 public class MainActivity extends AppCompatActivity {
     public static final int REQUIRED_CODE = 1;
     CountDownTimer countDownTimer;
+    ImageView iv_g_info;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private AdapterFragments adapterFragment;
@@ -39,13 +43,27 @@ public class MainActivity extends AppCompatActivity {
         timeCount();
         adapterViewPager();
         permission();
+        // show info
+        iv_g_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openDialogInfo();
+            }
+        });
     }
 
     public void init() {
         tabLayout = findViewById(R.id.tableLayout);
         viewPager = findViewById(R.id.viewPager);
+        iv_g_info = findViewById(R.id.iv_g_info);
         adapterFragment = new AdapterFragments(getSupportFragmentManager());
 
+    }
+
+    // open info
+    public void openDialogInfo() {
+        DialogInfo exampleDialogInfo = new DialogInfo();
+        exampleDialogInfo.show(MainActivity.this.getSupportFragmentManager(), "dialog_info");
     }
 
     // count time to out app

@@ -21,7 +21,6 @@ import com.example.signature.AES.AESpassword;
 import com.example.signature.ECDSA.PrivateKey;
 import com.example.signature.ECDSA.PublicKey;
 import com.example.signature.Fragments.Dialogs.DialogCheckPassword;
-import com.example.signature.Fragments.Dialogs.DialogInfo;
 import com.example.signature.Fragments.Dialogs.DialogPassword;
 import com.example.signature.Modle.SharePref;
 import com.example.signature.Modle.UtilsApplication;
@@ -40,7 +39,7 @@ public class Generation_Keys extends Fragment {
     static ConstraintLayout ct_g_pri, ct_g_pub, ct_g_generate;
     View view;
     LinearLayout ll_g_pass, ii_g_close;
-    ImageView iv_g_clear_key, iv_g_info;
+    ImageView iv_g_clear_key;
 
     public Generation_Keys() {
 
@@ -65,10 +64,16 @@ public class Generation_Keys extends Fragment {
         try {
             File path = Environment.getExternalStorageDirectory();
 
-            // create path dir
-            File dir = new File(path + "/Signature/");
+            //Save Public Key
+            File dirPub = new File(path + "/Signature/");
             // create path file
-            dir.mkdir();
+            dirPub.mkdir();
+            String filenamePub = "publicKey.pem";
+            File filePub = new File(dirPub, filenamePub);
+            FileWriter fileWriterPub = new FileWriter(filePub.getAbsoluteFile());
+            BufferedWriter bufferedWriterPub = new BufferedWriter(fileWriterPub);
+            bufferedWriterPub.write(StringPublicKey);
+            bufferedWriterPub.close();
 
             //Save Private Key
             File dirPri = new File(path + "/Signature/PrivateKey/");
@@ -80,17 +85,6 @@ public class Generation_Keys extends Fragment {
             BufferedWriter bufferedWriterPri = new BufferedWriter(fileWriterPri);
             bufferedWriterPri.write(StringPrivateKey);
             bufferedWriterPri.close();
-
-            //Save Public Key
-            File dirPub = new File(path + "/Signature/");
-            // create path file
-            dirPub.mkdir();
-            String filenamePub = "publicKey.pem";
-            File filePub = new File(dirPub, filenamePub);
-            FileWriter fileWriterPub = new FileWriter(filePub.getAbsoluteFile());
-            BufferedWriter bufferedWriterPub = new BufferedWriter(fileWriterPub);
-            bufferedWriterPub.write(StringPublicKey);
-            bufferedWriterPub.close();
 
             SharePref.SaveKey("" + dirPri + "/" + filenamePri, "" + dirPub + "/" + filenamePub);
             setView();
@@ -118,7 +112,6 @@ public class Generation_Keys extends Fragment {
         ct_g_pub = view.findViewById(R.id.ct_g_pub);
         ct_g_generate = view.findViewById(R.id.ct_g_generate);
         iv_g_clear_key = view.findViewById(R.id.iv_g_clear_pri);
-        iv_g_info = view.findViewById(R.id.iv_g_info);
         //set Views
         setView();
         if (!SharePref.CheckPassExsit()) {
@@ -166,20 +159,7 @@ public class Generation_Keys extends Fragment {
                 clearPrivateKey();
             }
         });
-        // show info
-        iv_g_info.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openDialogInfo();
-            }
-        });
         return view;
-    }
-
-    // open info
-    public void openDialogInfo() {
-        DialogInfo exampleDialogInfo = new DialogInfo();
-        exampleDialogInfo.show(Objects.requireNonNull(getActivity()).getSupportFragmentManager(), "dialog_info");
     }
 
 
