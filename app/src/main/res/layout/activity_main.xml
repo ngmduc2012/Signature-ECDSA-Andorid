@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true"
-    tools:context=".Activities.MainActivity"
-    android:focusable="true">
+    android:focusable="true"
+    tools:context=".Activities.MainActivity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline9"

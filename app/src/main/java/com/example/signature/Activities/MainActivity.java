@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
             public void onFinish() {
                 startActivity(new Intent(MainActivity.this, Login.class));
-                MainActivity.this.finish();
+                MainActivity.this.onStop();
             }
 
         }.start();
