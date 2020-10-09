@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="274dp" />
+        app:layout_constraintGuide_begin="540dp" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
@@ -41,7 +41,7 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_begin="661dp"
+        app:layout_constraintGuide_begin="1218dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         timeCount();
     }
 
-    // out to login after 7.2 minutes
+    // out to login after countTime
     public void timeCount() {
         countDownTimer = new CountDownTimer(countTime, 1000) {
             public void onTick(long millisUntilFinished) {
@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
             public void onFinish() {
                 startActivity(new Intent(MainActivity.this, Login.class));
                 MainActivity.this.onStop();
+                MainActivity.this.finish();
             }
 
         }.start();

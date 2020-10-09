@@ -4,47 +4,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.Verify">
+    tools:context=".Fragments.Signing">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline7"
+        android:id="@+id/guideline5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="594dp" />
+        app:layout_constraintGuide_begin="540dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/ct_v"
-        android:layout_width="match_parent"
+        android:id="@+id/constraintLayout5"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/background_show_files"
-        app:layout_constraintBottom_toTopOf="@+id/guideline7"
+        app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="108dp" />
+            app:layout_constraintGuide_begin="96dp" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="216dp" />
+            app:layout_constraintGuide_begin="192dp" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="324dp" />
+            app:layout_constraintGuide_begin="288dp" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/ct_v_pub_parent"
+            android:id="@+id/ct_s_pub_parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -58,7 +59,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/ct_v_hint_pub"
+                android:id="@+id/ct_s_hint_pub"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -67,7 +68,18 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/imageView11"
+                    android:id="@+id/imageView21"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="7dp"
+                    android:contentDescription="@string/todo"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_wrong_file" />
+
+                <ImageView
+                    android:id="@+id/imageView19"
                     android:layout_width="54dp"
                     android:layout_height="54dp"
                     android:contentDescription="@string/todo"
@@ -81,20 +93,20 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="108dp"
-                    android:text="@string/select_public_keys"
+                    android:text="@string/generate_keys_notify"
                     android:textAlignment="viewStart"
                     android:textColor="#3F51B5"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/imageView11"
+                    app:layout_constraintHorizontal_bias="0.4"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/ct_v_pub"
+                android:id="@+id/ct_s_pub"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/background_public_key_files"
@@ -110,25 +122,16 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/iv_v_notify_pub"
+                    android:id="@+id/imageView18"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/todo"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:srcCompat="@drawable/ic_wrong_file" />
+                    app:srcCompat="@drawable/ic_saved" />
 
                 <ImageView
-                    android:id="@+id/iv_v_clear_pub"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/todo"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_clear_path_public_key" />
-
-                <ImageView
-                    android:id="@+id/iv_v_pub"
+                    android:id="@+id/iv_s_pub"
                     android:layout_width="65dp"
                     android:layout_height="49dp"
                     android:contentDescription="@string/todo"
@@ -138,7 +141,7 @@
                     app:srcCompat="@drawable/ic_pub_key" />
 
                 <TextView
-                    android:id="@+id/tv_v_pub"
+                    android:id="@+id/tvPublicKey"
                     android:layout_width="223dp"
                     android:layout_height="48dp"
                     android:gravity="center"
@@ -146,14 +149,14 @@
                     android:textSize="14sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/iv_v_pub"
+                    app:layout_constraintStart_toEndOf="@+id/iv_s_pub"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/ct_v_doc_parent"
+            android:id="@+id/ct_s_doc_parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -168,7 +171,7 @@
             app:layout_constraintTop_toTopOf="@+id/guideline3">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/ct_v_hint_doc"
+                android:id="@+id/ct_s_hint_doc"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -203,7 +206,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/ct_v_doc"
+                android:id="@+id/ct_s_doc"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/background_document_file"
@@ -219,16 +222,16 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/iv_v_notify_doc"
+                    android:id="@+id/iv_s_notify_signed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/todo"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:srcCompat="@drawable/ic_wrong_file" />
+                    app:srcCompat="@drawable/ic_signing" />
 
                 <ImageView
-                    android:id="@+id/iv_v_clear_doc"
+                    android:id="@+id/iv_s_clear_doc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/todo"
@@ -237,7 +240,7 @@
                     app:srcCompat="@drawable/ic_clear_path_document" />
 
                 <ImageView
-                    android:id="@+id/iv_v_doc"
+                    android:id="@+id/iv_s_doc"
                     android:layout_width="65dp"
                     android:layout_height="49dp"
                     android:contentDescription="@string/todo"
@@ -247,7 +250,7 @@
                     app:srcCompat="@drawable/ic_document" />
 
                 <TextView
-                    android:id="@+id/tv_v_doc"
+                    android:id="@+id/tv_s_doc"
                     android:layout_width="223dp"
                     android:layout_height="48dp"
                     android:layout_marginTop="1dp"
@@ -256,14 +259,14 @@
                     android:textSize="14sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/iv_v_doc"
+                    app:layout_constraintStart_toEndOf="@+id/iv_s_doc"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/ct_v_signed_parent"
+            android:id="@+id/ct_s_signed_parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -277,7 +280,7 @@
             app:layout_constraintTop_toTopOf="@+id/guideline4">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/ct_v_hint_sign"
+                android:id="@+id/ct_s_btn_sign"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -290,7 +293,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="108dp"
-                    android:text="@string/select_signature_file"
+                    android:text="@string/write_signature"
                     android:textAlignment="viewStart"
                     android:textAllCaps="false"
                     android:textColor="#4CAF50"
@@ -298,10 +301,8 @@
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.458"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.48" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/imageView13"
@@ -312,11 +313,11 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0"
-                    app:srcCompat="@drawable/ic_add_signature_file" />
+                    app:srcCompat="@drawable/ic_signing" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/ct_v_sign"
+                android:id="@+id/ct_s_signed"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/background_signature_file"
@@ -332,16 +333,16 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/iv_v_notify_sign"
+                    android:id="@+id/imageView20"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/todo"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:srcCompat="@drawable/ic_wrong_file" />
+                    app:srcCompat="@drawable/ic_saved" />
 
                 <ImageView
-                    android:id="@+id/iv_v_sign_doc"
+                    android:id="@+id/iv_s_sign_doc"
                     android:layout_width="65dp"
                     android:layout_height="49dp"
                     android:contentDescription="@string/todo"
@@ -351,7 +352,7 @@
                     app:srcCompat="@drawable/ic_signature_file" />
 
                 <TextView
-                    android:id="@+id/tv_v_Signature"
+                    android:id="@+id/tvSignature"
                     android:layout_width="223dp"
                     android:layout_height="48dp"
                     android:layout_marginTop="1dp"
@@ -360,11 +361,11 @@
                     android:textSize="14sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/iv_v_sign_doc"
+                    app:layout_constraintStart_toEndOf="@+id/iv_s_sign_doc"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/iv_v_clear_sign"
+                    android:id="@+id/iv_clear_signed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/todo"
@@ -378,46 +379,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/ct_v_result"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/ct_v"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline10">
-
-        <ImageView
-            android:id="@+id/iv_v_result"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/todo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_verify_checking" />
-
-        <TextView
-            android:id="@+id/tvResult"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textColor="#4CAF50"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/iv_v_result"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="202dp" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
@@ -428,7 +390,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
-            android:id="@+id/ll_v_veriry"
+            android:id="@+id/ll_s_share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -438,21 +400,21 @@
             tools:ignore="UseCompoundDrawables">
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/verify"
-                android:textColor="#4CAF50"
+                android:text="@string/share"
+                android:textColor="#2196F3"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <ImageView
-                android:id="@+id/iv_verify"
+                android:id="@+id/iv_share"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:contentDescription="@string/todo"
-                app:srcCompat="@drawable/ic_signature_file" />
-
+                app:srcCompat="@drawable/ic_share" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

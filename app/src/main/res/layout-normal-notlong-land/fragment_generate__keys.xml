@@ -175,7 +175,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="540dp" />
+        app:layout_constraintGuide_begin="270dp" />
 
     <LinearLayout
         android:id="@+id/linearLayout4"

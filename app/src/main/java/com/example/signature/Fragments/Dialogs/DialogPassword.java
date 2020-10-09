@@ -45,7 +45,7 @@ public class DialogPassword extends AppCompatDialogFragment {
     TextView tv_dialog, tv_d_pass_notify, tv_d_forget;
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     Switch sw_d_finger;
-    ConstraintLayout ct_d_pass;
+    ConstraintLayout ct_d_pass,cc_d_p_finger;
     int ShowPassDialog = 1, ShowNewPassDialog = 1, ShowRetypeNewPassDialog = 1;
     private EditText et_Password, et_New_Password, et_Retype_New_Password;
 
@@ -60,6 +60,7 @@ public class DialogPassword extends AppCompatDialogFragment {
         // init
         builder.setView(view).create();
         tv_d_forget = view.findViewById(R.id.tv_d_forget);
+        cc_d_p_finger = view.findViewById(R.id.cc_d_p_finger);
         ct_d_pass = view.findViewById(R.id.ct_d_pass);
         iv_d_p_notify_password = view.findViewById(R.id.iv_d_p_notify_password);
         iv_d_p_notify_retype = view.findViewById(R.id.iv_d_p_notify_retype);
@@ -108,7 +109,7 @@ public class DialogPassword extends AppCompatDialogFragment {
                 if (et_New_Password.getText().toString().equals(et_Retype_New_Password.getText().toString())) {
                     iv_d_p_notify_retype.setImageResource(R.drawable.ic_verify_checking);
                 } else {
-                    iv_d_p_notify_retype.setImageResource(R.drawable.ic_not_verify);
+                    iv_d_p_notify_retype.setImageResource(R.drawable.ic_wrong_file);
                 }
             }
 
@@ -153,11 +154,12 @@ public class DialogPassword extends AppCompatDialogFragment {
         androidx.biometric.BiometricManager biometricManager = androidx.biometric.BiometricManager.from(getActivity());
         switch (biometricManager.canAuthenticate()) {
             case BiometricManager.BIOMETRIC_SUCCESS:
+                break;
             case BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE:
             case BiometricManager.BIOMETRIC_ERROR_SECURITY_UPDATE_REQUIRED:
-                break;
             case BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE:
             case BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED:
+                cc_d_p_finger.setVisibility(View.GONE);
                 tv_d_forget.setVisibility(View.GONE);
                 break;
         }
@@ -267,7 +269,7 @@ public class DialogPassword extends AppCompatDialogFragment {
                         change_file_key();
                         dismiss();
                     } else {
-                        iv_d_p_notify_retype.setImageResource(R.drawable.ic_wrong_file);
+                        iv_d_p_notify_retype.setImageResource(R.drawable.ic_not_verify);
                     }
                 } else {
                     iv_d_p_notify_password.setImageResource(R.drawable.ic_not_verify);
