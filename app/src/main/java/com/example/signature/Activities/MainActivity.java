@@ -25,6 +25,8 @@ import com.example.signature.Fragments.Verify;
 import com.example.signature.R;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.Objects;
+
 
 public class MainActivity extends AppCompatActivity {
     public static final int REQUIRED_CODE = 1;
@@ -53,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void init() {
-        tabLayout = findViewById(R.id.tableLayout);
+        tabLayout = findViewById(R.id.tabLayout);
         viewPager = findViewById(R.id.viewPager);
         iv_g_info = findViewById(R.id.iv_g_info);
         adapterFragment = new AdapterFragments(getSupportFragmentManager());
@@ -94,6 +96,9 @@ public class MainActivity extends AppCompatActivity {
         adapterFragment.AddFragment(new Verify(), "");
         viewPager.setAdapter(adapterFragment);
         tabLayout.setupWithViewPager(viewPager);
+        Objects.requireNonNull(tabLayout.getTabAt(0)).setIcon(R.drawable.ic_key);
+        Objects.requireNonNull(tabLayout.getTabAt(1)).setIcon(R.drawable.ic_table_sign);
+        Objects.requireNonNull(tabLayout.getTabAt(2)).setIcon(R.drawable.ic_verify);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

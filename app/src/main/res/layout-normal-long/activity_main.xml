@@ -5,6 +5,7 @@
     android:id="@+id/cc_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_frags"
     android:clickable="true"
     android:focusable="true"
     tools:context=".Activities.MainActivity">
@@ -21,29 +22,14 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_weight="30"
-        android:background="@drawable/background_frags"
         android:clickable="false"
         android:focusable="true"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintBottom_toTopOf="@+id/tabLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
     </androidx.viewpager.widget.ViewPager>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="680dp"
-        android:layout_marginEnd="411dp"
-        android:layout_marginBottom="36dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_begin="726dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/iv_g_info"
@@ -67,57 +53,23 @@
         app:srcCompat="@drawable/icon_app"
         tools:ignore="ContentDescription" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/tableLayout"
-        app:layout_constraintStart_toStartOf="@+id/tableLayout"
-        app:layout_constraintTop_toBottomOf="@+id/viewPager">
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:contentDescription="@string/todo"
-            android:padding="12dp"
-            app:srcCompat="@drawable/ic_key" />
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:contentDescription="@string/todo"
-            android:padding="12dp"
-            app:srcCompat="@drawable/ic_table_sign" />
-
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:contentDescription="@string/todo"
-            android:padding="12dp"
-            app:srcCompat="@drawable/ic_verify" />
-    </LinearLayout>
-
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tableLayout"
+        android:id="@+id/tabLayout"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="60dp"
         android:outlineAmbientShadowColor="#673AB7"
         android:outlineSpotShadowColor="#673AB7"
+        android:scrollbarSize="72dp"
+        android:scrollbarStyle="insideOverlay"
+        android:scrollbarTrackHorizontal="@drawable/background_login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewPager"
-        app:tabIconTint="@color/design_default_color_error"
+        app:tabIconTint="@color/colorPrimaryDark"
         app:tabIndicatorColor="#673AB7"
+        app:tabPadding="0dp"
+        app:tabPaddingEnd="0dp"
+        app:tabPaddingStart="0dp"
         app:tabRippleColor="#673AB7"
         app:tabSelectedTextColor="#673AB7"
         app:tabTextColor="#673AB7" />
