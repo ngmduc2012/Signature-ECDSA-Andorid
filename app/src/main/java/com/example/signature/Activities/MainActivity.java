@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -22,6 +24,7 @@ import com.example.signature.Fragments.Dialogs.DialogInfo;
 import com.example.signature.Fragments.Generation_Keys;
 import com.example.signature.Fragments.Signing;
 import com.example.signature.Fragments.Verify;
+import com.example.signature.Modle.SharePref;
 import com.example.signature.R;
 import com.google.android.material.tabs.TabLayout;
 
@@ -31,7 +34,7 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
     public static final int REQUIRED_CODE = 1;
     CountDownTimer countDownTimer;
-    ImageView iv_g_info;
+    ImageView iv_g_info, iv_close_app;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private AdapterFragments adapterFragment;
@@ -42,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
-        timeCount();
+        timeCountInMainActivity();
         adapterViewPager();
         permission();
         // show info
@@ -52,12 +55,22 @@ public class MainActivity extends AppCompatActivity {
                 openDialogInfo();
             }
         });
+        //close app
+        iv_close_app.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onClick(View view) {
+                finishAndRemoveTask();
+            }
+        });
     }
+
 
     public void init() {
         tabLayout = findViewById(R.id.tabLayout);
         viewPager = findViewById(R.id.viewPager);
         iv_g_info = findViewById(R.id.iv_g_info);
+        iv_close_app = findViewById(R.id.iv_close_app);
         adapterFragment = new AdapterFragments(getSupportFragmentManager());
 
     }
@@ -70,23 +83,46 @@ public class MainActivity extends AppCompatActivity {
 
     // count time to out app
     public void countTime() {
-        countDownTimer.cancel();
-        timeCount();
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+            timeCountInMainActivity();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
+        super.onPause();
+    }
+
+
+    @Override
+    protected void onResume() {
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+            timeCountInMainActivity();
+        }
+        super.onResume();
     }
 
     // out to login after countTime
-    public void timeCount() {
-        countDownTimer = new CountDownTimer(countTime, 1000) {
-            public void onTick(long millisUntilFinished) {
-            }
+    public void timeCountInMainActivity() {
+        if (SharePref.CheckPassExsit()) {
+            countDownTimer = new CountDownTimer(countTime, 1000) {
+                public void onTick(long millisUntilFinished) {
+//                    Log.e("countTime", "" + millisUntilFinished);
+                }
 
-            public void onFinish() {
-                startActivity(new Intent(MainActivity.this, Login.class));
-                MainActivity.this.onStop();
-                MainActivity.this.finish();
-            }
+                public void onFinish() {
+                    startActivity(new Intent(MainActivity.this, Login.class));
+                    MainActivity.this.onStop();
+                    MainActivity.this.finish();
+                }
 
-        }.start();
+            }.start();
+        }
     }
 
     // set view pager
@@ -102,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
             }
 
             @Override
@@ -155,8 +190,6 @@ public class MainActivity extends AppCompatActivity {
                         }, REQUIRED_CODE);
             }
 
-        } else {
-            Toast.makeText(this, "Pemission already granted!", Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -141,13 +141,14 @@
 
                 <TextView
                     android:id="@+id/tvPublicKey"
-                    android:layout_width="223dp"
+                    android:layout_width="0dp"
                     android:layout_height="48dp"
                     android:gravity="center"
                     android:textColor="#435BDD"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView18"
                     app:layout_constraintStart_toEndOf="@+id/iv_s_pub"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -250,7 +251,7 @@
 
                 <TextView
                     android:id="@+id/tv_s_doc"
-                    android:layout_width="223dp"
+                    android:layout_width="0dp"
                     android:layout_height="48dp"
                     android:layout_marginTop="1dp"
                     android:gravity="center"
@@ -258,6 +259,7 @@
                     android:textSize="14sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_s_clear_doc"
                     app:layout_constraintStart_toEndOf="@+id/iv_s_doc"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -352,7 +354,7 @@
 
                 <TextView
                     android:id="@+id/tvSignature"
-                    android:layout_width="223dp"
+                    android:layout_width="0dp"
                     android:layout_height="48dp"
                     android:layout_marginTop="1dp"
                     android:gravity="center"
@@ -360,6 +362,7 @@
                     android:textSize="14sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView20"
                     app:layout_constraintStart_toEndOf="@+id/iv_s_sign_doc"
                     app:layout_constraintTop_toTopOf="parent" />
 

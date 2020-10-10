@@ -201,36 +201,6 @@
             tools:layout_editor_absoluteY="28dp">
 
             <LinearLayout
-                android:id="@+id/ii_g_close"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="UseCompoundDrawables">
-
-                <ImageView
-                    android:id="@+id/iv_close_app"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:contentDescription="@string/todo"
-                    app:srcCompat="@drawable/ic_close_app" />
-
-                <TextView
-                    android:id="@+id/textView12"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/lock"
-                    android:textColor="#673AB7"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <LinearLayout
                 android:id="@+id/ll_g_pass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

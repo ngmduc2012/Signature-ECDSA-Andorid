@@ -38,7 +38,7 @@ public class Generation_Keys extends Fragment {
     static TextView tv_g_pri, tv_g_pub;
     static ConstraintLayout ct_g_pri, ct_g_pub, ct_g_generate;
     View view;
-    LinearLayout ll_g_pass, ii_g_close;
+    LinearLayout ll_g_pass;
     ImageView iv_g_clear_key;
 
     public Generation_Keys() {
@@ -107,7 +107,6 @@ public class Generation_Keys extends Fragment {
         tv_g_pri = view.findViewById(R.id.tv_g_pri);
         tv_g_pub = view.findViewById(R.id.tv_g_pub);
         ll_g_pass = view.findViewById(R.id.ll_g_pass);
-        ii_g_close = view.findViewById(R.id.ii_g_close);
         ct_g_pri = view.findViewById(R.id.ct_g_pri);
         ct_g_pub = view.findViewById(R.id.ct_g_pub);
         ct_g_generate = view.findViewById(R.id.ct_g_generate);
@@ -143,13 +142,6 @@ public class Generation_Keys extends Fragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(), SharePref.PathPri(), Toast.LENGTH_SHORT).show();
-            }
-        });
-        //close app
-        ii_g_close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Objects.requireNonNull(getActivity()).finishAndRemoveTask();
             }
         });
         // new pri-pub keys

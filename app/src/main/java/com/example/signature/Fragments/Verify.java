@@ -19,7 +19,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.example.signature.Activities.MainActivity;
 import com.example.signature.ECDSA.Ecdsa;
 import com.example.signature.ECDSA.PublicKey;
 import com.example.signature.ECDSA.Signature;
@@ -44,7 +43,7 @@ public class Verify extends Fragment {
     View view;
     ImageView iv_v_clear_sign;
     ImageView iv_v_clear_doc;
-    ImageView iv_v_clear_pub,iv_v_notify_pub,iv_v_notify_doc,iv_v_notify_sign;
+    ImageView iv_v_clear_pub, iv_v_notify_pub, iv_v_notify_doc, iv_v_notify_sign;
     LinearLayout ll_v_veriry;
     String pathDoc_v = "";
     String pathSign = "";

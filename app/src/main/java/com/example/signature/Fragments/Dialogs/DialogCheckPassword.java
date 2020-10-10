@@ -4,6 +4,7 @@ package com.example.signature.Fragments.Dialogs;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.hardware.biometrics.BiometricManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
+import com.example.signature.Activities.Login;
 import com.example.signature.Modle.SharePref;
 import com.example.signature.Modle.UtilsApplication;
 import com.example.signature.R;
@@ -35,8 +37,8 @@ import static com.example.signature.Fragments.Generation_Keys.setView;
 public class DialogCheckPassword extends AppCompatDialogFragment {
     Button btn_Check;
     ImageView iv_d_checkPass, iv_d_checkpass_notify, iv_d_checkpass_eye;
-    TextView tv_d_checkPass;
-    int ShowPassDialogCheck = 1;
+    TextView tv_d_checkPass, tv_d_checkPass_notify;
+    int ShowPassDialogCheck = 1, countDialog = 5;
     private EditText et_d_checkPass;
 
     @SuppressLint({"SwitchIntDef", "SetTextI18n"})
@@ -55,6 +57,18 @@ public class DialogCheckPassword extends AppCompatDialogFragment {
         btn_Check = view.findViewById(R.id.btn_Check);
         et_d_checkPass = view.findViewById(R.id.et_d_checkPass);
         tv_d_checkPass = view.findViewById(R.id.tv_d_checkPass);
+        tv_d_checkPass_notify = view.findViewById(R.id.tv_d_checkPass_notify);
+        // check count Input Wrong Password
+        if (SharePref.SellectCountLoginInputPassword() != 4
+                && SharePref.SellectCountLoginInputPassword() != 3
+                && SharePref.SellectCountLoginInputPassword() != 2
+                && SharePref.SellectCountLoginInputPassword() != 1
+                && SharePref.SellectCountLoginInputPassword() != 0) {
+            SharePref.countLoginInputPassword(5);
+        } else {
+            countDialog = SharePref.SellectCountLoginInputPassword();
+            tv_d_checkPass_notify.setText(countDialog + " times left");
+        }
         // on click check pass
         btn_Check.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -145,7 +159,8 @@ public class DialogCheckPassword extends AppCompatDialogFragment {
         }
     }
 
-    //Save new pass AES
+    //Check password to delete Private key file
+    @SuppressLint("SetTextI18n")
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void CheckPass() {
         if (et_d_checkPass.getText().toString().isEmpty()) {
@@ -156,6 +171,15 @@ public class DialogCheckPassword extends AppCompatDialogFragment {
                 dismiss();
             } else {
                 iv_d_checkpass_notify.setImageResource(R.drawable.ic_not_verify);
+                countDialog -= 1;
+                SharePref.countLoginInputPassword(countDialog);
+                tv_d_checkPass_notify.setText(countDialog + " times left");
+                if (countDialog == 0) {
+                    SharePref.countLogin(60000);
+                    startActivity(new Intent(getActivity(), Login.class));
+                    Objects.requireNonNull(getActivity()).finish();
+                    dismiss();
+                }
             }
         }
 
@@ -164,6 +188,7 @@ public class DialogCheckPassword extends AppCompatDialogFragment {
 
     // delete private key file and path private key and public key
     public void deletePrivateKey_Dialog() {
+        SharePref.countLoginInputPassword(5);
         UtilsApplication.deleteFile(SharePref.PathPri());
         SharePref.SaveKey(null, null);
         setView();

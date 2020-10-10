@@ -8,13 +8,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ct_g_showKeys"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/background_show_files"
         android:foregroundGravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ct_g_pri"
@@ -64,14 +65,13 @@
 
             <TextView
                 android:id="@+id/tv_g_pri"
-                android:layout_width="223dp"
+                android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:gravity="center"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:typeface="normal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintEnd_toStartOf="@+id/iv_g_clear_pri"
                 app:layout_constraintStart_toEndOf="@+id/imageView4"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -156,26 +156,18 @@
 
             <TextView
                 android:id="@+id/tv_g_pub"
-                android:layout_width="223dp"
+                android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:gravity="center"
                 android:textColor="#0026FB"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintEnd_toStartOf="@+id/imageView17"
                 app:layout_constraintStart_toEndOf="@+id/imageView5"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="540dp" />
 
     <LinearLayout
         android:id="@+id/linearLayout4"
@@ -199,36 +191,6 @@
             android:layout_marginBottom="12dp"
             tools:layout_editor_absoluteX="273dp"
             tools:layout_editor_absoluteY="28dp">
-
-            <LinearLayout
-                android:id="@+id/ii_g_close"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="UseCompoundDrawables">
-
-                <ImageView
-                    android:id="@+id/iv_close_app"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:contentDescription="@string/todo"
-                    app:srcCompat="@drawable/ic_close_app" />
-
-                <TextView
-                    android:id="@+id/textView12"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/lock"
-                    android:textColor="#673AB7"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/ll_g_pass"

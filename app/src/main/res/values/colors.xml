@@ -5,4 +5,6 @@
     <color name="colorAccent">#DFB7E1</color>
     <color name="red_check_false">#FB0101</color>
     <color name="green_check_true">#4CAF50</color>
+    <color name="hint_purple_color">#3DC7ACF7</color>
+    <color name="show_purple_color">#AA66CC</color>
 </resources>

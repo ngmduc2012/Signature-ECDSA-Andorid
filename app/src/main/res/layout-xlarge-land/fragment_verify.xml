@@ -6,19 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.Verify">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="540dp" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ct_v"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/background_show_files"
-        app:layout_constraintBottom_toTopOf="@+id/guideline7"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -140,13 +133,14 @@
 
                 <TextView
                     android:id="@+id/tv_v_pub"
-                    android:layout_width="223dp"
+                    android:layout_width="0dp"
                     android:layout_height="48dp"
                     android:gravity="center"
                     android:textColor="#435BDD"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_v_clear_pub"
                     app:layout_constraintStart_toEndOf="@+id/iv_v_pub"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -249,7 +243,7 @@
 
                 <TextView
                     android:id="@+id/tv_v_doc"
-                    android:layout_width="223dp"
+                    android:layout_width="0dp"
                     android:layout_height="48dp"
                     android:layout_marginTop="1dp"
                     android:gravity="center"
@@ -257,6 +251,7 @@
                     android:textSize="14sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_v_clear_doc"
                     app:layout_constraintStart_toEndOf="@+id/iv_v_doc"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -353,7 +348,7 @@
 
                 <TextView
                     android:id="@+id/tv_v_Signature"
-                    android:layout_width="223dp"
+                    android:layout_width="0dp"
                     android:layout_height="48dp"
                     android:layout_marginTop="1dp"
                     android:gravity="center"
@@ -361,6 +356,7 @@
                     android:textSize="14sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_v_clear_sign"
                     app:layout_constraintStart_toEndOf="@+id/iv_v_sign_doc"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -379,6 +375,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout9"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"

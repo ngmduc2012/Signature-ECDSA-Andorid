@@ -36,9 +36,9 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        init();
         checkSharePreLogin();
         checkCountLogin();
-        init();
         // finger print
         androidx.biometric.BiometricManager biometricManager = androidx.biometric.BiometricManager.from(this);
         switch (biometricManager.canAuthenticate()) {
@@ -92,7 +92,7 @@ public class Login extends AppCompatActivity {
                 if (SharePref.AskUseFinger()) {
                     biometricPrompt.authenticate(promptInfo);
                 } else {
-                    Toast.makeText(Login.this, "You have set use Fingerprint yet!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this, "You have not set use Fingerprint yet!", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -112,11 +112,24 @@ public class Login extends AppCompatActivity {
         }
     }
 
-    // check the first time to enter app
+    // check to enter app
+    @SuppressLint({"LongLogTag", "SetTextI18n"})
     public void checkSharePreLogin() {
+        // check the first time to enter app
         if (!SharePref.CheckPassExsit()) {
             startActivity(new Intent(Login.this, MainActivity.class));
             Login.this.finish();
+        }
+        // check count Input Wrong Password
+        if (SharePref.SellectCountLoginInputPassword() != 4
+                && SharePref.SellectCountLoginInputPassword() != 3
+                && SharePref.SellectCountLoginInputPassword() != 2
+                && SharePref.SellectCountLoginInputPassword() != 1
+                && SharePref.SellectCountLoginInputPassword() != 0) {
+            SharePref.countLoginInputPassword(5);
+        } else {
+            count = SharePref.SellectCountLoginInputPassword();
+            tv_l_count.setText(count + " times left to login");
         }
     }
 
@@ -131,6 +144,7 @@ public class Login extends AppCompatActivity {
     }
 
     // check password
+    @SuppressLint("SetTextI18n")
     public void check(View view) {
         if (et_pass_login.getText().toString().isEmpty()) {
             Toast.makeText(this, "Fulfil!", Toast.LENGTH_SHORT).show();
@@ -140,6 +154,8 @@ public class Login extends AppCompatActivity {
             } else {
                 iv_l_notify.setImageResource(R.drawable.ic_not_verify);
                 count -= 1;
+                SharePref.countLoginInputPassword(count);
+                tv_l_count.setText(count + " times left to login");
                 if (count == 0) {
                     countLogin(60000);
                 }
@@ -149,11 +165,11 @@ public class Login extends AppCompatActivity {
     }
 
     // check time login
+    @SuppressLint({"SetTextI18n", "LongLogTag"})
     public void checkCountLogin() {
         if (SharePref.SellectCountLogin() != 0) {
             countLogin(SharePref.SellectCountLogin());
         }
-
     }
 
     // count time login
@@ -162,18 +178,23 @@ public class Login extends AppCompatActivity {
 
             @SuppressLint("SetTextI18n")
             public void onTick(long millisUntilFinished) {
-                tv_l_count.setText("seconds remaining: " + millisUntilFinished / 1000 + " s");
+                tv_l_count.setText("Login after: " + millisUntilFinished / 1000 + " s");
                 SharePref.countLogin(millisUntilFinished);
                 btn_login.setEnabled(false);
                 iv_finger.setEnabled(false);
+                btn_login.setTextColor(getApplication().getResources().getColor(R.color.hint_purple_color));
+                iv_l_notify.setImageResource(R.drawable.ic_lock_login);
             }
 
             public void onFinish() {
                 tv_l_count.setText(null);
                 btn_login.setEnabled(true);
                 iv_finger.setEnabled(true);
+                iv_l_notify.setImageResource(R.drawable.ic_password_aes);
+                btn_login.setTextColor(getApplication().getResources().getColor(R.color.show_purple_color));
                 SharePref.countLogin(0);
                 count = 5;
+                SharePref.countLoginInputPassword(count);
             }
 
         }.start();
@@ -181,6 +202,7 @@ public class Login extends AppCompatActivity {
 
     // login
     public void login() {
+        SharePref.countLoginInputPassword(5);
         startActivity(new Intent(Login.this, MainActivity.class));
         Login.this.finish();
     }

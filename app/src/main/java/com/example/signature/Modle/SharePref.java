@@ -16,6 +16,7 @@ public class SharePref {
     private static final String PASS_AES = "AESPassword";
     private static final String USE_FINGER = "UseFinger";
     private static final String COUNT_LOGIN = "countLogin";
+    private static final String COUNT_LOGIN_INPUT = "countLoginInput";
     private static SharedPreferences mSharedPreferences;
     private static SharedPreferences.Editor editor;
 
@@ -99,5 +100,17 @@ public class SharePref {
         return mSharedPreferences.getLong(COUNT_LOGIN, 432);
     }
 
+    // save Wrong input password times
+    public static void countLoginInputPassword(int countInput) {
+        init();
+        editor.putInt(COUNT_LOGIN_INPUT, countInput);
+        editor.apply();
+    }
+
+    // pick Wrong input password times
+    public static int SellectCountLoginInputPassword() {
+        init();
+        return mSharedPreferences.getInt(COUNT_LOGIN_INPUT, 432);
+    }
 
 }

@@ -46,29 +46,28 @@ public class DialogInfo extends AppCompatDialogFragment {
         super.onCreate(savedInstanceState);
         // add data info app
         list = new ArrayList<>();
-        list.add(new InfoApp(R.drawable.ic_generate_keys, "Use ECDSA to generate Keys"));
+        list.add(new InfoApp(R.drawable.ic_generate_keys, "Use ECDSA to generate Public Key and Private Key"));
         list.add(new InfoApp(R.drawable.ic_clear_path_public_key, "Delete path selected file")); // add image = R.drawable.image type int
         list.add(new InfoApp(R.drawable.ic_baseline_control_point_24, "Add path selected file"));
+        list.add(new InfoApp(R.drawable.ic_password_aes, "Use AES Password to encryption Private Key"));
+        list.add(new InfoApp(R.drawable.ic_saved, "Saved File"));
         list.add(new InfoApp(R.drawable.ic_baseline_fingerprint_24, "Use Finger Print"));
-        list.add(new InfoApp(R.drawable.ic_close_app, "Close app"));
+        list.add(new InfoApp(R.drawable.ic_close_app, "Close application, Auto close application after 3.6 minutes"));
         list.add(new InfoApp(R.drawable.ic_share, "Share Files"));
-        list.add(new InfoApp(R.drawable.ic_hind_password, "Hint password input"));
-        list.add(new InfoApp(R.drawable.ic_show_password, "Show password input"));
+        list.add(new InfoApp(R.drawable.ic_hind_password, "Hint input password text"));
+        list.add(new InfoApp(R.drawable.ic_show_password, "Show input password text"));
         list.add(new InfoApp(R.drawable.ic_show_info, "Info App"));
         list.add(new InfoApp(R.drawable.ic_signature_file, "Signature"));
         list.add(new InfoApp(R.drawable.ic_document, "Document File"));
         list.add(new InfoApp(R.drawable.ic_pri_key, "Private Key"));
         list.add(new InfoApp(R.drawable.ic_pub_key, "Public Key"));
         list.add(new InfoApp(R.drawable.ic_signing, "Signing"));
-        list.add(new InfoApp(R.drawable.ic_table_sign, "Signature Page"));
-        list.add(new InfoApp(R.drawable.ic_verify, "Verify Page"));
-        list.add(new InfoApp(R.drawable.ic_key, "Generate Keys Page"));
         list.add(new InfoApp(R.drawable.ic_verify_checking, "True"));
         list.add(new InfoApp(R.drawable.ic_wrong_file, "Warning"));
         list.add(new InfoApp(R.drawable.ic_not_verify, "Not True"));
-        list.add(new InfoApp(R.drawable.ic_password_aes, "Use AES Password to encryption \nPrivate Key"));
-        list.add(new InfoApp(R.drawable.ic_saved, "Saved File"));
-
+        list.add(new InfoApp(R.drawable.ic_table_sign, "Signature Page"));
+        list.add(new InfoApp(R.drawable.ic_verify, "Verify Page"));
+        list.add(new InfoApp(R.drawable.ic_key, "Generate Keys Page"));
     }
 
 }
