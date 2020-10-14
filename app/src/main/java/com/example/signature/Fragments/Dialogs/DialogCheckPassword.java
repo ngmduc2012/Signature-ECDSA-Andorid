@@ -4,10 +4,12 @@ package com.example.signature.Fragments.Dialogs;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.hardware.biometrics.BiometricManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +41,7 @@ public class DialogCheckPassword extends AppCompatDialogFragment {
     ImageView iv_d_checkPass, iv_d_checkpass_notify, iv_d_checkpass_eye;
     TextView tv_d_checkPass, tv_d_checkPass_notify;
     int ShowPassDialogCheck = 1, countDialog = 5;
+    Vibrator vibrator;
     private EditText et_d_checkPass;
 
     @SuppressLint({"SwitchIntDef", "SetTextI18n"})
@@ -51,6 +54,7 @@ public class DialogCheckPassword extends AppCompatDialogFragment {
         View view = inflater.inflate(R.layout.layout_dialog_check_password, null);
         //init
         builder.setView(view).create();
+        vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
         iv_d_checkpass_eye = view.findViewById(R.id.iv_d_checkpass_eye);
         iv_d_checkpass_notify = view.findViewById(R.id.iv_d_checkpass_notify);
         iv_d_checkPass = view.findViewById(R.id.iv_d_checkPass);
@@ -119,8 +123,8 @@ public class DialogCheckPassword extends AppCompatDialogFragment {
                     }
                 });
         final androidx.biometric.BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
-                .setTitle("Login")
-                .setDescription("User your fingerprint to login")
+                .setTitle("Check Password")
+                .setDescription("User your fingerprint to check password")
                 .setNegativeButtonText("Cancel")
                 .build();
 
@@ -171,6 +175,9 @@ public class DialogCheckPassword extends AppCompatDialogFragment {
                 dismiss();
             } else {
                 iv_d_checkpass_notify.setImageResource(R.drawable.ic_not_verify);
+                if (vibrator.hasVibrator()) {
+                    vibrator.vibrate(432); // for 432 ms
+                }
                 countDialog -= 1;
                 SharePref.countLoginInputPassword(countDialog);
                 tv_d_checkPass_notify.setText(countDialog + " times left");

@@ -2,11 +2,13 @@ package com.example.signature.Fragments;
 
 import android.annotation.SuppressLint;
 import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +51,7 @@ public class Signing extends Fragment {
     ImageView iv_s_clear_doc;
     ImageView iv_clear_signed;
     LinearLayout ll_s_share;
+    Vibrator vibrator;
     View view;
     String pathDoc, pathSignature;
     private String nameFile;
@@ -99,6 +102,7 @@ public class Signing extends Fragment {
                              Bundle savedInstanceState) {
         //init
         view = inflater.inflate(R.layout.fragment_signing, container, false);
+        vibrator = (Vibrator) Objects.requireNonNull(getActivity()).getSystemService(Context.VIBRATOR_SERVICE);
         tv_s_doc = view.findViewById(R.id.tv_s_doc);
         ct_s_hint_doc = view.findViewById(R.id.ct_s_hint_doc);
         ct_s_signed = view.findViewById(R.id.ct_s_signed);
@@ -244,27 +248,36 @@ public class Signing extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void btnSigning() {
         if (SharePref.PathPri().isEmpty()) {
+            if (vibrator.hasVibrator()) {
+                vibrator.vibrate(432); // for 432 ms
+            }
             Toast.makeText(getContext(), "You don't have key! Back to create key", Toast.LENGTH_SHORT).show();
         } else {
-            //Read encrypt private key file
-            String encryptedTextBase64 = com.example.signature.ECDSA.utils.File.read(SharePref.PathPri());
+            if (tv_s_doc.getText().toString().isEmpty()) {
+                if (vibrator.hasVibrator()) {
+                    vibrator.vibrate(432); // for 432 ms
+                }
+                Toast.makeText(getContext(), "Select a file Document!", Toast.LENGTH_SHORT).show();
+            } else {
+                //Read encrypt private key file
+                String encryptedTextBase64 = com.example.signature.ECDSA.utils.File.read(SharePref.PathPri());
 
-            // Decrypt AES with encrypt private ky file
-            String decryptedText = null;
-            try {
-                decryptedText = AESpassword.decrypt(encryptedTextBase64, SharePref.SellectAESPass());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+                // Decrypt AES with encrypt private ky file
+                String decryptedText = null;
+                try {
+                    decryptedText = AESpassword.decrypt(encryptedTextBase64, SharePref.SellectAESPass());
+                } catch (Exception e) {
+                    if (vibrator.hasVibrator()) {
+                        vibrator.vibrate(432); // for 432 ms
+                    }
+                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
 //            Toast.makeText(this, decryptedText, Toast.LENGTH_SHORT).show();
-            String privateKeyPem = decryptedText;
-            //Signature with document and privateKey.pem
-            try {
-                assert privateKeyPem != null;
-                PrivateKey privateKey = PrivateKey.fromPem(privateKeyPem);
-                if (tv_s_doc.getText().toString().isEmpty()) {
-                    Toast.makeText(getContext(), "Select a file Document!", Toast.LENGTH_SHORT).show();
-                } else {
+                String privateKeyPem = decryptedText;
+                //Signature with document and privateKey.pem
+                try {
+                    assert privateKeyPem != null;
+                    PrivateKey privateKey = PrivateKey.fromPem(privateKeyPem);
                     //Read document
                     String message = com.example.signature.ECDSA.utils.File.read(pathDoc);
                     //Signing
@@ -274,11 +287,14 @@ public class Signing extends Fragment {
                     saveTest(derSign);
                     setViewSigningFragment();
                     Toast.makeText(getContext(), "Signed!", Toast.LENGTH_SHORT).show();
-                }
-            } catch (Exception e) {
-                Toast.makeText(getContext(), "privateKey.pem does not exist!", Toast.LENGTH_SHORT).show();
-            }
 
+                } catch (Exception e) {
+                    if (vibrator.hasVibrator()) {
+                        vibrator.vibrate(432); // for 432 ms
+                    }
+                    Toast.makeText(getContext(), "privateKey.pem does not exist!", Toast.LENGTH_SHORT).show();
+                }
+            }
         }
     }
 
@@ -301,6 +317,9 @@ public class Signing extends Fragment {
             tvSignature.setText(UtilsApplication.nameFile(pathSignature));
 //            Toast.makeText(this, "Signature: " + dirSign + "/" + filenameSign, Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
+            if (vibrator.hasVibrator()) {
+                vibrator.vibrate(432); // for 432 ms
+            }
             Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
@@ -316,6 +335,9 @@ public class Signing extends Fragment {
             this.startActivity(Intent.createChooser(emailIntent, "Sending"));
 
         } catch (Throwable t) {
+            if (vibrator.hasVibrator()) {
+                vibrator.vibrate(432); // for 432 ms
+            }
             Toast.makeText(getContext(), "Request failed try again: " + t.toString(), Toast.LENGTH_LONG).show();
         }
     }

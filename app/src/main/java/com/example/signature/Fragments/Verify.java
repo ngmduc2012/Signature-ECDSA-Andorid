@@ -1,10 +1,12 @@
 package com.example.signature.Fragments;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +51,7 @@ public class Verify extends Fragment {
     String pathSign = "";
     String pathPub = "";
     String verifiedResult = "";
+    Vibrator vibrator;
 
 
     public Verify() {
@@ -64,6 +67,7 @@ public class Verify extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_verify, container, false);
+        vibrator = (Vibrator) Objects.requireNonNull(getActivity()).getSystemService(Context.VIBRATOR_SERVICE);
         tv_v_doc = view.findViewById(R.id.tv_v_doc);
         tv_v_pub = view.findViewById(R.id.tv_v_pub);
         tv_v_Signature = view.findViewById(R.id.tv_v_Signature);
@@ -305,6 +309,9 @@ public class Verify extends Fragment {
         if (tv_v_Signature.getText().toString().isEmpty()
                 || tv_v_pub.getText().toString().isEmpty()
                 || tv_v_doc.getText().toString().isEmpty()) {
+            if (vibrator.hasVibrator()) {
+                vibrator.vibrate(432); // for 432 ms
+            }
             Toast.makeText(getActivity(), "Select Files!", Toast.LENGTH_SHORT).show();
         } else {
             //Read publicKey.pem
@@ -314,6 +321,9 @@ public class Verify extends Fragment {
                 publicKey = PublicKey.fromPem(publicKeyPem);
                 iv_v_notify_pub.setImageResource(R.drawable.ic_verify_checking);
             } catch (Exception e) {
+                if (vibrator.hasVibrator()) {
+                    vibrator.vibrate(432); // for 432 ms
+                }
                 iv_v_notify_pub.setImageResource(R.drawable.ic_not_verify);
             }
             //Read signature.txt
@@ -324,6 +334,9 @@ public class Verify extends Fragment {
                 signature = Signature.fromDer(byteString);
                 iv_v_notify_sign.setImageResource(R.drawable.ic_verify_checking);
             } catch (Exception e) {
+                if (vibrator.hasVibrator()) {
+                    vibrator.vibrate(432); // for 432 ms
+                }
                 iv_v_notify_sign.setImageResource(R.drawable.ic_not_verify);
             }
             //Read document
@@ -335,7 +348,16 @@ public class Verify extends Fragment {
                 verifiedResult = "" + verified;
                 setViewVerifyFragment();
                 Toast.makeText(getActivity(), "Signature is " + verified + "!", Toast.LENGTH_SHORT).show();
+                if(!verified)
+                {
+                    if (vibrator.hasVibrator()) {
+                        vibrator.vibrate(432); // for 432 ms
+                    }
+                }
             } catch (Exception e) {
+                if (vibrator.hasVibrator()) {
+                    vibrator.vibrate(432); // for 432 ms
+                }
                 Toast.makeText(getActivity(), "Reason: Permission or Type of File or Not exist!", Toast.LENGTH_SHORT).show();
             }
         }

@@ -1,11 +1,13 @@
 package com.example.signature.Activities;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.hardware.biometrics.BiometricManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Vibrator;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +24,7 @@ import androidx.core.content.ContextCompat;
 import com.example.signature.Modle.SharePref;
 import com.example.signature.R;
 
+import java.util.Objects;
 import java.util.concurrent.Executor;
 
 public class Login extends AppCompatActivity {
@@ -30,6 +33,7 @@ public class Login extends AppCompatActivity {
     Button btn_login;
     ImageView iv_finger, iv_login_eye, iv_l_notify;
     int checkShowPassLogin = 1, count = 5;
+    Vibrator vibrator;
 
     @SuppressLint({"SwitchIntDef", "SetTextI18n"})
     @Override
@@ -134,6 +138,7 @@ public class Login extends AppCompatActivity {
     }
 
     public void init() {
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         iv_l_notify = findViewById(R.id.iv_l_notify);
         et_pass_login = findViewById(R.id.et_pass_login);
         iv_login_eye = findViewById(R.id.iv_login_eye);
@@ -153,6 +158,9 @@ public class Login extends AppCompatActivity {
                 login();
             } else {
                 iv_l_notify.setImageResource(R.drawable.ic_not_verify);
+                if (vibrator.hasVibrator()) {
+                    vibrator.vibrate(432); // for 432 ms
+                }
                 count -= 1;
                 SharePref.countLoginInputPassword(count);
                 tv_l_count.setText(count + " times left to login");
@@ -187,6 +195,9 @@ public class Login extends AppCompatActivity {
             }
 
             public void onFinish() {
+                if (vibrator.hasVibrator()) {
+                    vibrator.vibrate(432); // for 432 ms
+                }
                 tv_l_count.setText(null);
                 btn_login.setEnabled(true);
                 iv_finger.setEnabled(true);

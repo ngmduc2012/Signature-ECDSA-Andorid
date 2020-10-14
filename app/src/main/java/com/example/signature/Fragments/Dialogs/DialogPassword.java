@@ -4,10 +4,12 @@ package com.example.signature.Fragments.Dialogs;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.hardware.biometrics.BiometricManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
@@ -49,6 +51,7 @@ public class DialogPassword extends AppCompatDialogFragment {
     Switch sw_d_finger;
     ConstraintLayout ct_d_pass, cc_d_p_finger;
     int ShowPassDialog = 1, ShowNewPassDialog = 1, ShowRetypeNewPassDialog = 1, countDialog = 5;
+    Vibrator vibrator;
     private EditText et_Password, et_New_Password, et_Retype_New_Password;
 
     @SuppressLint({"SetTextI18n", "SwitchIntDef"})
@@ -61,6 +64,7 @@ public class DialogPassword extends AppCompatDialogFragment {
         View view = inflater.inflate(R.layout.layout_dialog_password, null);
         // init
         builder.setView(view).create();
+        vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
         tv_d_forget = view.findViewById(R.id.tv_d_forget);
         cc_d_p_finger = view.findViewById(R.id.cc_d_p_finger);
         ct_d_pass = view.findViewById(R.id.ct_d_pass);
@@ -107,8 +111,13 @@ public class DialogPassword extends AppCompatDialogFragment {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 SharePref.SetUseFinger(b);
-                if (!b)
+                if (!b) {
+                    if (vibrator.hasVibrator()) {
+                        vibrator.vibrate(432); // for 432 ms
+                    }
                     Toast.makeText(getActivity(), "You need finger print when forgetting password!", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
         // check new password and retype new password are the same
@@ -215,8 +224,8 @@ public class DialogPassword extends AppCompatDialogFragment {
                     }
                 });
         final androidx.biometric.BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
-                .setTitle("Login")
-                .setDescription("User your fingerprint to login")
+                .setTitle("Forget Password")
+                .setDescription("User your fingerprint to get password")
                 .setNegativeButtonText("Cancel")
                 .build();
 
@@ -296,6 +305,7 @@ public class DialogPassword extends AppCompatDialogFragment {
             } else {
                 // if Password is true
                 if (SharePref.CheckLogin(et_Password.getText().toString())) {
+                    iv_d_p_notify_password.setImageResource(R.drawable.ic_verify_checking);
                     if (et_New_Password.getText().toString().equals(et_Retype_New_Password.getText().toString())) {
                         // Decrypt old pass AES and Encrypt new pass AES
                         SharePref.countLoginInputPassword(5);
@@ -308,6 +318,9 @@ public class DialogPassword extends AppCompatDialogFragment {
                 // if Password is false
                 else {
                     iv_d_p_notify_password.setImageResource(R.drawable.ic_not_verify);
+                    if (vibrator.hasVibrator()) {
+                        vibrator.vibrate(432); // for 432 ms
+                    }
                     countDialog -= 1;
                     SharePref.countLoginInputPassword(countDialog);
                     tv_d_pass_notify.setText(countDialog + " times left");
