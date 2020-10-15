@@ -198,9 +198,9 @@ public class MainActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUIRED_CODE) {
             if ((grantResults.length > 0) && (grantResults[0] + grantResults[1]) == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Permission Granded!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Permission Graded!", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, "Premission Denied!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Permission Denied!", Toast.LENGTH_SHORT).show();
             }
 
         }
