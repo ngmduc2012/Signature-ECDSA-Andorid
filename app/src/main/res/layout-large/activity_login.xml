@@ -69,32 +69,38 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_password_aes" />
 
-            <EditText
-                android:id="@+id/et_pass_login"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:autofillHints=""
-                android:background="@drawable/background_edit_text"
-                android:ems="10"
-                android:hint="@string/password"
-                android:inputType="textPassword"
-                android:padding="5dp"
-                android:paddingStart="5dp"
-                android:paddingLeft="5dp"
-                android:paddingTop="5dp"
-                android:paddingEnd="5dp"
-                android:paddingRight="5dp"
-                android:paddingBottom="5dp"
-                android:textAlignment="center"
-                android:textColor="@android:color/holo_purple"
-                android:textColorHint="@android:color/holo_purple"
-                android:textSize="18sp"
-                android:textStyle="bold"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintEnd_toStartOf="@+id/iv_login_eye"
+                app:layout_constraintStart_toEndOf="@+id/iv_l_notify"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <EditText
+                    android:id="@+id/et_pass_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:autofillHints=""
+                    android:background="@drawable/background_edit_text"
+                    android:ems="10"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
+                    android:padding="5dp"
+                    android:paddingStart="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="5dp"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/holo_purple"
+                    android:textColorHint="@android:color/holo_purple"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <ImageView
                 android:id="@+id/iv_login_eye"

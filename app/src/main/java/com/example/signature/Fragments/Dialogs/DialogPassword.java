@@ -96,6 +96,10 @@ public class DialogPassword extends AppCompatDialogFragment {
         } else {
             countDialog = SharePref.SellectCountLoginInputPassword();
             tv_d_pass_notify.setText(countDialog + " times left");
+            if(countDialog == 1)
+            {
+                tv_d_pass_notify.setText(countDialog + " time left");
+            }
             tv_d_pass_notify.setTextColor(Objects.requireNonNull(getContext()).getResources().getColor(R.color.colorPrimaryDark));
         }
         //on click
@@ -161,6 +165,10 @@ public class DialogPassword extends AppCompatDialogFragment {
                         tv_d_pass_notify.setText(null);
                     } else {
                         tv_d_pass_notify.setText(countDialog + " times left");
+                        if(countDialog == 1)
+                        {
+                            tv_d_pass_notify.setText(countDialog + " time left");
+                        }
                         tv_d_pass_notify.setTextColor(Objects.requireNonNull(getContext()).getResources().getColor(R.color.colorPrimaryDark));
                     }
                 } else {
@@ -301,6 +309,9 @@ public class DialogPassword extends AppCompatDialogFragment {
         if (SharePref.CheckPassExsit()) {
             if (et_New_Password.getText().toString().isEmpty() || et_Retype_New_Password.getText().toString().isEmpty()
                     || et_Password.getText().toString().isEmpty()) {
+                if (vibrator.hasVibrator()) {
+                    vibrator.vibrate(432); // for 432 ms
+                }
                 Toast.makeText(getActivity(), "Fulfil!", Toast.LENGTH_SHORT).show();
             } else {
                 // if Password is true
@@ -324,6 +335,10 @@ public class DialogPassword extends AppCompatDialogFragment {
                     countDialog -= 1;
                     SharePref.countLoginInputPassword(countDialog);
                     tv_d_pass_notify.setText(countDialog + " times left");
+                    if(countDialog == 1)
+                    {
+                        tv_d_pass_notify.setText(countDialog + " time left");
+                    }
                     tv_d_pass_notify.setTextColor(Objects.requireNonNull(getContext()).getResources().getColor(R.color.colorPrimaryDark));
                     if (countDialog == 0) {
                         SharePref.countLogin(60000);
@@ -338,6 +353,9 @@ public class DialogPassword extends AppCompatDialogFragment {
         // AES password is not exist. Just make a new pass
         else {
             if (et_New_Password.getText().toString().isEmpty() || et_Retype_New_Password.getText().toString().isEmpty()) {
+                if (vibrator.hasVibrator()) {
+                    vibrator.vibrate(432); // for 432 ms
+                }
                 Toast.makeText(getActivity(), "Fulfil!", Toast.LENGTH_SHORT).show();
             } else {
                 //Check AES Password?
@@ -389,6 +407,9 @@ public class DialogPassword extends AppCompatDialogFragment {
             privateKey = PrivateKey.fromPem(decryptedText);
             publicKey = privateKey.publicKey();
         } catch (Exception e) {
+            if (vibrator.hasVibrator()) {
+                vibrator.vibrate(432); // for 432 ms
+            }
             Toast.makeText(getActivity(), "Changed Password!", Toast.LENGTH_SHORT).show();
             Toast.makeText(getActivity(), "Couldn't Encrypted privateKey.pem!", Toast.LENGTH_SHORT).show();
         }

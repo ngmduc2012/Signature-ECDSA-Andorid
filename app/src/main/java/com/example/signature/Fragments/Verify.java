@@ -348,8 +348,7 @@ public class Verify extends Fragment {
                 verifiedResult = "" + verified;
                 setViewVerifyFragment();
                 Toast.makeText(getActivity(), "Signature is " + verified + "!", Toast.LENGTH_SHORT).show();
-                if(!verified)
-                {
+                if (!verified) {
                     if (vibrator.hasVibrator()) {
                         vibrator.vibrate(432); // for 432 ms
                     }

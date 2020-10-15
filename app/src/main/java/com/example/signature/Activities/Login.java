@@ -96,6 +96,9 @@ public class Login extends AppCompatActivity {
                 if (SharePref.AskUseFinger()) {
                     biometricPrompt.authenticate(promptInfo);
                 } else {
+                    if (vibrator.hasVibrator()) {
+                        vibrator.vibrate(432); // for 432 ms
+                    }
                     Toast.makeText(Login.this, "You have not set use Fingerprint yet!", Toast.LENGTH_SHORT).show();
                 }
 
@@ -134,6 +137,10 @@ public class Login extends AppCompatActivity {
         } else {
             count = SharePref.SellectCountLoginInputPassword();
             tv_l_count.setText(count + " times left to login");
+            if(count == 1)
+            {
+                tv_l_count.setText(count + " time left to login");
+            }
         }
     }
 
@@ -152,6 +159,9 @@ public class Login extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     public void check(View view) {
         if (et_pass_login.getText().toString().isEmpty()) {
+            if (vibrator.hasVibrator()) {
+                vibrator.vibrate(432); // for 432 ms
+            }
             Toast.makeText(this, "Fulfil!", Toast.LENGTH_SHORT).show();
         } else {
             if (SharePref.CheckLogin(et_pass_login.getText().toString())) {
@@ -164,6 +174,10 @@ public class Login extends AppCompatActivity {
                 count -= 1;
                 SharePref.countLoginInputPassword(count);
                 tv_l_count.setText(count + " times left to login");
+                if(count == 1)
+                {
+                    tv_l_count.setText(count + " time left to login");
+                }
                 if (count == 0) {
                     countLogin(60000);
                 }

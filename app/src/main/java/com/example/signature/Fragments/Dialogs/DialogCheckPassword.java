@@ -72,6 +72,10 @@ public class DialogCheckPassword extends AppCompatDialogFragment {
         } else {
             countDialog = SharePref.SellectCountLoginInputPassword();
             tv_d_checkPass_notify.setText(countDialog + " times left");
+            if(countDialog == 1)
+            {
+                tv_d_checkPass_notify.setText(countDialog + " time left");
+            }
         }
         // on click check pass
         btn_Check.setOnClickListener(new View.OnClickListener() {
@@ -134,7 +138,10 @@ public class DialogCheckPassword extends AppCompatDialogFragment {
                 if (SharePref.AskUseFinger()) {
                     biometricPrompt.authenticate(promptInfo);
                 } else {
-                    Toast.makeText(getActivity(), "You have set use Fingerprint yet!", Toast.LENGTH_SHORT).show();
+                    if (vibrator.hasVibrator()) {
+                        vibrator.vibrate(432); // for 432 ms
+                    }
+                    Toast.makeText(getActivity(), "You have not set use Fingerprint yet!", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -168,6 +175,9 @@ public class DialogCheckPassword extends AppCompatDialogFragment {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void CheckPass() {
         if (et_d_checkPass.getText().toString().isEmpty()) {
+            if (vibrator.hasVibrator()) {
+                vibrator.vibrate(432); // for 432 ms
+            }
             Toast.makeText(getActivity(), "Fulfil!", Toast.LENGTH_SHORT).show();
         } else {
             if (SharePref.CheckLogin(et_d_checkPass.getText().toString())) {
@@ -181,6 +191,10 @@ public class DialogCheckPassword extends AppCompatDialogFragment {
                 countDialog -= 1;
                 SharePref.countLoginInputPassword(countDialog);
                 tv_d_checkPass_notify.setText(countDialog + " times left");
+                if(countDialog == 1)
+                {
+                    tv_d_checkPass_notify.setText(countDialog + " time left");
+                }
                 if (countDialog == 0) {
                     SharePref.countLogin(60000);
                     startActivity(new Intent(getActivity(), Login.class));

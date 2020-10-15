@@ -176,6 +176,9 @@ public class Signing extends Fragment {
         ct_s_hint_pub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (vibrator.hasVibrator()) {
+                    vibrator.vibrate(432); // for 432 ms
+                }
                 Toast.makeText(getActivity(), "Back and generate Keys!", Toast.LENGTH_SHORT).show();
             }
         });
