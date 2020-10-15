@@ -45,7 +45,7 @@ import java.util.concurrent.Executor;
 
 public class DialogPassword extends AppCompatDialogFragment {
     Button btn_Enter;
-    ImageView iv_d_p_password, iv_d_p_new_password, iv_d_p_retype, iv_d_p_notify_retype, iv_d_p_notify_password;
+    ImageView iv_d_p_password, iv_d_p_new_password, iv_d_p_retype, iv_d_p_notify_retype, iv_d_p_notify_password, iv_d_p_new_password_notify;
     TextView tv_dialog, tv_d_pass_notify, tv_d_forget;
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     Switch sw_d_finger;
@@ -68,6 +68,7 @@ public class DialogPassword extends AppCompatDialogFragment {
         tv_d_forget = view.findViewById(R.id.tv_d_forget);
         cc_d_p_finger = view.findViewById(R.id.cc_d_p_finger);
         ct_d_pass = view.findViewById(R.id.ct_d_pass);
+        iv_d_p_new_password_notify = view.findViewById(R.id.iv_d_p_new_password_notify);
         iv_d_p_notify_password = view.findViewById(R.id.iv_d_p_notify_password);
         iv_d_p_notify_retype = view.findViewById(R.id.iv_d_p_notify_retype);
         iv_d_p_retype = view.findViewById(R.id.iv_d_p_retype);
@@ -82,7 +83,7 @@ public class DialogPassword extends AppCompatDialogFragment {
         et_Password = view.findViewById(R.id.et_Password);
         // check when the first time enter app
         if (!SharePref.CheckPassExsit()) {
-            tv_dialog.setText("  Create Password");
+            tv_dialog.setText(" Create Password");
             ct_d_pass.setVisibility(View.GONE);
             tv_d_forget.setVisibility(View.GONE);
         }
@@ -96,8 +97,7 @@ public class DialogPassword extends AppCompatDialogFragment {
         } else {
             countDialog = SharePref.SellectCountLoginInputPassword();
             tv_d_pass_notify.setText(countDialog + " times left");
-            if(countDialog == 1)
-            {
+            if (countDialog == 1) {
                 tv_d_pass_notify.setText(countDialog + " time left");
             }
             tv_d_pass_notify.setTextColor(Objects.requireNonNull(getContext()).getResources().getColor(R.color.colorPrimaryDark));
@@ -165,13 +165,17 @@ public class DialogPassword extends AppCompatDialogFragment {
                         tv_d_pass_notify.setText(null);
                     } else {
                         tv_d_pass_notify.setText(countDialog + " times left");
-                        if(countDialog == 1)
-                        {
+                        if (countDialog == 1) {
                             tv_d_pass_notify.setText(countDialog + " time left");
                         }
                         tv_d_pass_notify.setTextColor(Objects.requireNonNull(getContext()).getResources().getColor(R.color.colorPrimaryDark));
                     }
+                } else if (et_New_Password.getText().toString().length() < 6) {
+                    tv_d_pass_notify.setText("6 characters");
+                    tv_d_pass_notify.setTextColor(Objects.requireNonNull(getContext()).getResources().getColor(R.color.colorPrimaryDark));
+                    iv_d_p_new_password_notify.setImageResource(R.drawable.ic_not_verify);
                 } else {
+                    iv_d_p_new_password_notify.setImageResource(R.drawable.ic_verify_checking);
                     calculatePasswordStrength(s.toString());
                 }
             }
@@ -316,10 +320,18 @@ public class DialogPassword extends AppCompatDialogFragment {
             } else {
                 // if Password is true
                 if (SharePref.CheckLogin(et_Password.getText().toString())) {
+                    SharePref.countLoginInputPassword(5);
+                    countDialog = 5;
                     iv_d_p_notify_password.setImageResource(R.drawable.ic_verify_checking);
-                    if (et_New_Password.getText().toString().equals(et_Retype_New_Password.getText().toString())) {
+                    if (et_New_Password.getText().toString().length() < 6) {
+                        if (vibrator.hasVibrator()) {
+                            vibrator.vibrate(432); // for 432 ms
+                        }
+                        tv_d_pass_notify.setText("6 characters");
+                        iv_d_p_new_password_notify.setImageResource(R.drawable.ic_not_verify);
+                        iv_d_p_notify_retype.setImageResource(R.drawable.ic_not_verify);
+                    } else if (et_New_Password.getText().toString().equals(et_Retype_New_Password.getText().toString())) {
                         // Decrypt old pass AES and Encrypt new pass AES
-                        SharePref.countLoginInputPassword(5);
                         change_file_key();
                         dismiss();
                     } else {
@@ -335,8 +347,7 @@ public class DialogPassword extends AppCompatDialogFragment {
                     countDialog -= 1;
                     SharePref.countLoginInputPassword(countDialog);
                     tv_d_pass_notify.setText(countDialog + " times left");
-                    if(countDialog == 1)
-                    {
+                    if (countDialog == 1) {
                         tv_d_pass_notify.setText(countDialog + " time left");
                     }
                     tv_d_pass_notify.setTextColor(Objects.requireNonNull(getContext()).getResources().getColor(R.color.colorPrimaryDark));
@@ -360,7 +371,14 @@ public class DialogPassword extends AppCompatDialogFragment {
             } else {
                 //Check AES Password?
                 if (SharePref.CheckLogin(et_Password.getText().toString())) {
-                    if (et_New_Password.getText().toString().equals(et_Retype_New_Password.getText().toString())) {
+                    if (et_New_Password.getText().toString().length() < 6) {
+                        if (vibrator.hasVibrator()) {
+                            vibrator.vibrate(432); // for 432 ms
+                        }
+                        tv_d_pass_notify.setText("6 characters");
+                        iv_d_p_new_password_notify.setImageResource(R.drawable.ic_not_verify);
+                        iv_d_p_notify_retype.setImageResource(R.drawable.ic_not_verify);
+                    } else if (et_New_Password.getText().toString().equals(et_Retype_New_Password.getText().toString())) {
                         //Save new AES Key to SharePref
                         SharePref.AESPass(et_New_Password.getText().toString());
                         Toast.makeText(getActivity(), "Success!", Toast.LENGTH_SHORT).show();
